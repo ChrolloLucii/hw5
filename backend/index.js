@@ -1,8 +1,8 @@
 import express from 'express';
 import session from 'express-session';
 import bcrypt from 'bcryptjs';
-import cors from 'cors'
-const cookieParser = require('cookie-parser');
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import fs from 'fs-extra';
 
 import {getCachedData, setCachedData} from './cache.js'
@@ -10,7 +10,7 @@ import {getCachedData, setCachedData} from './cache.js'
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser);
+app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
@@ -26,7 +26,7 @@ app.use(session({
     }
 }));
 
-app.post('register', async (req, res) => {
+app.post('/register', async (req, res) => {
     const { login, password } = req.body;
     if (!login || !password) return res.status(400).json({ error: 'Login and password required' });
     let users = [];
